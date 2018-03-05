@@ -1,30 +1,30 @@
 version: "3"
 
 services:
-  postgres:
+  dbpg:
     build:
       context: ./postgres
     container_name: db-postgres
     volumes:
-      - work-data:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     environment:
-      POSTGRES_PASSWORD: s3cr3t
+      POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
 
-  mysql:
+  dbmysql:
     build:
       context: ./mysql
     restart: always
     container_name: db-mysql
     volumes:
-      - work-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: admin
     ports:
       - "3306:3306"
 
-  redis:
+  dbredis:
     image: redis:3.2-alpine
     container_name: db-redis
     volumes:
@@ -32,7 +32,7 @@ services:
     ports:
       - "6379:6379"
 
-  mongo:
+  dbmongo:
     image: mongo:latest
     container_name: db-mongo
     volumes:
@@ -43,3 +43,5 @@ services:
 
 volumes:
   work-data:
+  pg-data:
+  mysql-data:
